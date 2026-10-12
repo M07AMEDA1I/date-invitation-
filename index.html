@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#090d24" />
+  <title>A Little Question 💗</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="landing">
+  <div class="stars" aria-hidden="true"></div>
+  <main class="hero">
+    <div class="tiny-note"><span class="heart">♡</span> A little question...</div>
+    <div class="moon" aria-hidden="true">☾</div>
+    <section class="question-card">
+      <p class="eyebrow">I have something to ask you</p>
+      <h1>Would you like to<br class="desktop-break"> go out with me<br> on a date<span class="pink">?</span></h1>
+      <div class="underline" aria-hidden="true"></div>
+      <p class="subtext">No pressure… but I’m hoping for a yes. <span>♡</span></p>
+      <div class="choices" id="choices">
+        <button class="btn btn-yes" id="yesBtn" type="button"><span>♡</span> Yes!</button>
+        <button class="btn btn-no" id="noBtn" type="button">No</button>
+      </div>
+      <p class="hint" id="hint">Psst… the pink button looks pretty convincing. ✨</p>
+    </section>
+    <div class="bottom-note">made with a little courage <span>♥</span></div>
+    <div class="city-glow" aria-hidden="true"></div>
+  </main>
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const choices = document.getElementById('choices');
+    const hint = document.getElementById('hint');
+    const messages = [
+      "Nice try 😌",
+      "That button has other plans.",
+      "The universe says… maybe click Yes? ✨",
+      "You're really committed to this, huh? 😂",
+      "Almost! …not really 💗"
+    ];
+    let count = 0;
+    function moveNoButton() {
+      const area = choices.getBoundingClientRect();
+      const btn = noBtn.getBoundingClientRect();
+      const maxX = Math.max(0, area.width - btn.width);
+      const maxY = 90;
+      const x = Math.random() * maxX - maxX / 2;
+      const y = (Math.random() * maxY) - maxY / 2;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+      noBtn.style.position = 'relative';
+      noBtn.style.zIndex = '5';
+      hint.textContent = messages[count % messages.length];
+      count++;
+    }
+    noBtn.addEventListener('pointerenter', moveNoButton);
+    noBtn.addEventListener('touchstart', function (event) {
+      event.preventDefault();
+      moveNoButton();
+    }, { passive: false });
+    noBtn.addEventListener('click', function (event) {
+      event.preventDefault();
+      moveNoButton();
+    });
+    document.getElementById('yesBtn').addEventListener('click', () => {
+      window.location.href = 'date.html';
+    });
+  </script>
+</body>
+</html>

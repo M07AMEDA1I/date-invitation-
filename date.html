@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#090d24" />
+  <title>Our Little Plan 💗</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="details-page">
+  <div class="stars" aria-hidden="true"></div>
+  <main class="details-wrap">
+    <a class="back-link" href="index.html">← Back to the question</a>
+    <header class="details-heading">
+      <div class="sparkle">♡</div>
+      <p class="script">Perfect!</p>
+      <h1>Let’s make a little plan.</h1>
+      <p class="intro">Tell me what you have in mind, and I’ll get back to you. ✨</p>
+    </header>
+
+    <form class="details-card" id="dateForm">
+      <label class="field">
+        <span class="field-icon">◷</span>
+        <span class="field-copy">
+          <strong>Date &amp; time</strong>
+          <small>When should our date happen?</small>
+          <input type="datetime-local" id="dateTime" required />
+        </span>
+      </label>
+      <label class="field">
+        <span class="field-icon">⌖</span>
+        <span class="field-copy">
+          <strong>Location</strong>
+          <small>Where would you like to go?</small>
+          <input type="text" id="location" placeholder="A café, restaurant, or somewhere nice…" required maxlength="140" />
+        </span>
+      </label>
+      <label class="field">
+        <span class="field-icon">♧</span>
+        <span class="field-copy">
+          <strong>Food</strong>
+          <small>What are you in the mood for?</small>
+          <input type="text" id="food" placeholder="Pizza, sushi, burgers… or surprise me!" required maxlength="140" />
+        </span>
+      </label>
+      <button class="btn btn-send" type="submit"><span>Send to WhatsApp</span><span class="send-icon">↗</span></button>
+      <p class="privacy-note">Your plan opens in WhatsApp, ready for you to send. <span>♥</span></p>
+      <p class="form-error" id="formError" role="alert"></p>
+    </form>
+    <footer class="footer-note">Can’t wait to hear from you <span>♡</span></footer>
+  </main>
+  <script>
+    // International WhatsApp format: country code + number, without the domestic leading zero.
+    const whatsappNumber = '249126013364';
+    const form = document.getElementById('dateForm');
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const dateTime = document.getElementById('dateTime').value;
+      const location = document.getElementById('location').value.trim();
+      const food = document.getElementById('food').value.trim();
+      const error = document.getElementById('formError');
+      if (!dateTime || !location || !food) {
+        error.textContent = 'Please fill in all three details first. 💗';
+        return;
+      }
+      const date = new Date(dateTime);
+      const readableDate = date.toLocaleString(undefined, {
+        dateStyle: 'medium',
+        timeStyle: 'short'
+      });
+      const message = `Hi! 💗 I'd love to go on a date with you!\n\n🗓️ Date & time: ${readableDate}\n📍 Location: ${location}\n🍽️ Food: ${food}\n\nLet's make it happen! ✨`;
+      const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+      error.textContent = '';
+    });
+  </script>
+</body>
+</html>
